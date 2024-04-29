@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Zezoprice.Models
 {
-    public partial class SurveyReviewMsdComment
+    public partial class AdjustmentCommpanyComment
     {
         public int Id { get; set; }
         public string? Comment { get; set; }

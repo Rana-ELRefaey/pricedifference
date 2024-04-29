@@ -13,5 +13,11 @@ namespace Zezoprice.Models
         public int? PrintStatus { get; set; }
         public DateOnly? PrintDate { get; set; }
         public string? Editcertificateinformation { get; set; }
+        public int? PhoneNotPaid { get; set; }
+        public string? StatusNotPaid { get; set; }
+        public string? SubStautsNotPaid { get; set; }
+        public string? Con1 { get; set; }
+        public string? RecertNotPaid { get; set; }
+        public DateOnly? TofidexNotPaid { get; set; }
     }
 }

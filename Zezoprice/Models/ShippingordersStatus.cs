@@ -18,5 +18,10 @@ namespace Zezoprice.Models
         public DateOnly? StatusDate { get; set; }
         public long? Numberofcopies { get; set; }
         public string? EditorComment { get; set; }
+        public string? CommentCompany { get; set; }
+        public string? CommentSend { get; set; }
+        public string? CommentRsc { get; set; }
+        public string? ReceiveComment { get; set; }
+        public int? SubStatus { get; set; }
     }
 }

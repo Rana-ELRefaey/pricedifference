@@ -27,5 +27,8 @@ namespace Zezoprice.Models
         public string? Buildingarea { get; set; }
         public string? Landarea { get; set; }
         public BitArray? Hasinquiryrequest { get; set; }
+        public int? Assigned { get; set; }
+        public double? Paymentdifferenceamount { get; set; }
+        public int Paymentstatus { get; set; }
     }
 }

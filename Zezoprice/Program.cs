@@ -1,3 +1,5 @@
+using OfficeOpenXml;
+//using Zezoprice.Models;
 using Zezoprice.Models;
 using Zezoprice.Services;
 
@@ -9,18 +11,18 @@ builder.Services.AddControllers();
 builder.Services.AddCors();
 builder.Services.AddTransient<IServices, Services>();
 builder.Services.AddDbContext<rsc_v2Context>();
+//builder.Services.AddDbContext<RSCContext>();
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(); 
 }
 
 app.UseHttpsRedirection();

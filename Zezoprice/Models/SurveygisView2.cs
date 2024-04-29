@@ -40,5 +40,6 @@ namespace Zezoprice.Models
         public string? TankNo { get; set; }
         public string? LandNo { get; set; }
         public short? Tawheed { get; set; }
+        public char? SeragLetters { get; set; }
     }
 }

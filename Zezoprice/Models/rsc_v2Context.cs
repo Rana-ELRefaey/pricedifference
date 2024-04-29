@@ -18,6 +18,8 @@ namespace Zezoprice.Models
 
         public virtual DbSet<Address> Addresses { get; set; } = null!;
         public virtual DbSet<AddressesUpdated> AddressesUpdateds { get; set; } = null!;
+        public virtual DbSet<AdjustmentCommpanyComment> AdjustmentCommpanyComments { get; set; } = null!;
+        public virtual DbSet<AdjustmentsReviewMsdComment> AdjustmentsReviewMsdComments { get; set; } = null!;
         public virtual DbSet<AfterExtractionStatus> AfterExtractionStatuses { get; set; } = null!;
         public virtual DbSet<Areatype> Areatypes { get; set; } = null!;
         public virtual DbSet<Aspnetuser> Aspnetusers { get; set; } = null!;
@@ -43,6 +45,7 @@ namespace Zezoprice.Models
         public virtual DbSet<CertificateViewLayout> CertificateViewLayouts { get; set; } = null!;
         public virtual DbSet<CertificateViewLayout3857> CertificateViewLayout3857s { get; set; } = null!;
         public virtual DbSet<CertificateViewLayoutEdit> CertificateViewLayoutEdits { get; set; } = null!;
+        public virtual DbSet<CertificateViewLayoutEdit2> CertificateViewLayoutEdit2s { get; set; } = null!;
         public virtual DbSet<CertificateViewQgi> CertificateViewQgis { get; set; } = null!;
         public virtual DbSet<CollectingView> CollectingViews { get; set; } = null!;
         public virtual DbSet<CompaniesZone> CompaniesZones { get; set; } = null!;
@@ -96,6 +99,9 @@ namespace Zezoprice.Models
         public virtual DbSet<MappUserRole> MappUserRoles { get; set; } = null!;
         public virtual DbSet<Modificationlog> Modificationlogs { get; set; } = null!;
         public virtual DbSet<Modifiedtable> Modifiedtables { get; set; } = null!;
+        public virtual DbSet<Nezar> Nezars { get; set; } = null!;
+        public virtual DbSet<Nezar2> Nezar2s { get; set; } = null!;
+        public virtual DbSet<Nezar3> Nezar3s { get; set; } = null!;
         public virtual DbSet<Nsdi> Nsdis { get; set; } = null!;
         public virtual DbSet<Office> Offices { get; set; } = null!;
         public virtual DbSet<Orderstatus> Orderstatuses { get; set; } = null!;
@@ -106,7 +112,6 @@ namespace Zezoprice.Models
         public virtual DbSet<RequestTawheed> RequestTawheeds { get; set; } = null!;
         public virtual DbSet<RequestTrip> RequestTrips { get; set; } = null!;
         public virtual DbSet<Requestpricedifference> Requestpricedifferences { get; set; } = null!;
-        public virtual DbSet<RequestsDash> RequestsDashes { get; set; } = null!;
         public virtual DbSet<RequestsExtrainfo> RequestsExtrainfos { get; set; } = null!;
         public virtual DbSet<RequestsOverlap> RequestsOverlaps { get; set; } = null!;
         public virtual DbSet<RequestsOverlapNcpslu> RequestsOverlapNcpslus { get; set; } = null!;
@@ -131,6 +136,7 @@ namespace Zezoprice.Models
         public virtual DbSet<SurveyteamRegion> SurveyteamRegions { get; set; } = null!;
         public virtual DbSet<SurveyteamViewCollected> SurveyteamViewCollecteds { get; set; } = null!;
         public virtual DbSet<SurveyteamsView> SurveyteamsViews { get; set; } = null!;
+        public virtual DbSet<Ta3delatComm> Ta3delatComms { get; set; } = null!;
         public virtual DbSet<Techoffice> Techoffices { get; set; } = null!;
         public virtual DbSet<UnittypeValue> UnittypeValues { get; set; } = null!;
         public virtual DbSet<UsageStatus> UsageStatuses { get; set; } = null!;
@@ -146,15 +152,15 @@ namespace Zezoprice.Models
         public virtual DbSet<ZshippingordersCount> ZshippingordersCounts { get; set; } = null!;
         public virtual DbSet<ZshippingordersCountSum> ZshippingordersCountSums { get; set; } = null!;
 
-        // Unable to generate entity type for table 'gdo.gindexcolumns' since its primary key could not be scaffolded. Please see the warning messages.
         // Unable to generate entity type for table 'gdo.gfieldmapping' since its primary key could not be scaffolded. Please see the warning messages.
+        // Unable to generate entity type for table 'gdo.gindexcolumns' since its primary key could not be scaffolded. Please see the warning messages.
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseNpgsql("Host=81.21.104.178;Port=5432;Database=rsc_v2;Username=postgres;Password=+n5Bk2DGYbFt4tr5QDCc1a!;");
+                optionsBuilder.UseNpgsql("host=81.21.104.178;port=5432;user name = zezo;password= Ah123456*;database =rsc_v2");
             }
         }
 
@@ -355,6 +361,56 @@ namespace Zezoprice.Models
                     .HasColumnName("westernborderlength");
             });
 
+            modelBuilder.Entity<AdjustmentCommpanyComment>(entity =>
+            {
+                entity.ToTable("adjustment_commpany_comments");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .HasDefaultValueSql("nextval('adjustment_commpany_comments'::regclass)");
+
+                entity.Property(e => e.Comment).HasColumnName("comment");
+
+                entity.Property(e => e.CommentTime)
+                    .HasColumnType("timestamp without time zone")
+                    .HasColumnName("comment_time");
+
+                entity.Property(e => e.IdShippingorder).HasColumnName("id_shippingorder");
+
+                entity.Property(e => e.Requestnumber)
+                    .HasColumnType("character varying")
+                    .HasColumnName("requestnumber");
+
+                entity.Property(e => e.Sender).HasColumnName("sender");
+
+                entity.Property(e => e.UserName)
+                    .HasColumnType("character varying")
+                    .HasColumnName("user_name");
+            });
+
+            modelBuilder.Entity<AdjustmentsReviewMsdComment>(entity =>
+            {
+                entity.ToTable("adjustments_review_msd_comments");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Comment).HasColumnName("comment");
+
+                entity.Property(e => e.CommentTime).HasColumnName("comment_time");
+
+                entity.Property(e => e.IdShippingorder).HasColumnName("id_shippingorder");
+
+                entity.Property(e => e.Requestnumber)
+                    .HasColumnType("character varying")
+                    .HasColumnName("requestnumber");
+
+                entity.Property(e => e.Sender).HasColumnName("sender");
+
+                entity.Property(e => e.UserName)
+                    .HasColumnType("character varying")
+                    .HasColumnName("user_name");
+            });
+
             modelBuilder.Entity<AfterExtractionStatus>(entity =>
             {
                 entity.ToTable("after_extraction_status");
@@ -456,6 +512,10 @@ namespace Zezoprice.Models
                     .HasColumnName("collected")
                     .HasDefaultValueSql("0");
 
+                entity.Property(e => e.Com)
+                    .HasColumnType("character varying")
+                    .HasColumnName("com");
+
                 entity.Property(e => e.CompanyId).HasColumnName("company_id");
 
                 entity.Property(e => e.Confirmed)
@@ -511,7 +571,7 @@ namespace Zezoprice.Models
                 entity.Property(e => e.ReviewAfterExtraction).HasColumnName("review_after_extraction");
 
                 entity.Property(e => e.Serag)
-                    .HasMaxLength(36)
+                    .HasColumnType("character varying")
                     .HasColumnName("serag");
 
                 entity.Property(e => e.SeragLetters)
@@ -1228,6 +1288,8 @@ namespace Zezoprice.Models
                     .HasMaxLength(200)
                     .HasColumnName("arabicfullname");
 
+                entity.Property(e => e.DiffPrice).HasColumnName("diff_price");
+
                 entity.Property(e => e.Gov)
                     .HasMaxLength(200)
                     .HasColumnName("gov");
@@ -1281,6 +1343,8 @@ namespace Zezoprice.Models
                 entity.Property(e => e.Telephonenumber2)
                     .HasColumnType("character varying")
                     .HasColumnName("telephonenumber2");
+
+                entity.Property(e => e.TotalPrice).HasColumnName("total_price");
             });
 
             modelBuilder.Entity<CertificateView>(entity =>
@@ -1858,7 +1922,7 @@ namespace Zezoprice.Models
                     .HasColumnName("sec_now");
 
                 entity.Property(e => e.Serag)
-                    .HasMaxLength(36)
+                    .HasColumnType("character varying")
                     .HasColumnName("serag");
 
                 entity.Property(e => e.SeragShaqaa).HasColumnName("serag_shaqaa");
@@ -2122,7 +2186,7 @@ namespace Zezoprice.Models
                     .HasColumnName("sec_now");
 
                 entity.Property(e => e.Serag)
-                    .HasMaxLength(36)
+                    .HasColumnType("character varying")
                     .HasColumnName("serag");
 
                 entity.Property(e => e.SeragShaqaa)
@@ -2355,7 +2419,7 @@ namespace Zezoprice.Models
                     .HasColumnName("sec");
 
                 entity.Property(e => e.Serag)
-                    .HasMaxLength(36)
+                    .HasColumnType("character varying")
                     .HasColumnName("serag");
 
                 entity.Property(e => e.SeragShaqaa).HasColumnName("serag_shaqaa");
@@ -2389,6 +2453,235 @@ namespace Zezoprice.Models
                 entity.Property(e => e.Ssec)
                     .HasMaxLength(200)
                     .HasColumnName("ssec");
+
+                entity.Property(e => e.Streetname)
+                    .HasMaxLength(200)
+                    .HasColumnName("streetname");
+
+                entity.Property(e => e.SurveyTeamId).HasColumnName("survey_team_id");
+
+                entity.Property(e => e.Surveynum)
+                    .HasMaxLength(10)
+                    .HasColumnName("surveynum");
+
+                entity.Property(e => e.SuvSubtype).HasColumnName("suv_subtype");
+
+                entity.Property(e => e.Totalaparts).HasColumnName("totalaparts");
+
+                entity.Property(e => e.Totalarea).HasColumnName("totalarea");
+
+                entity.Property(e => e.Unittype)
+                    .HasMaxLength(50)
+                    .HasColumnName("unittype");
+
+                entity.Property(e => e.Usage)
+                    .HasColumnType("character varying")
+                    .HasColumnName("usage");
+
+                entity.Property(e => e.WestB)
+                    .HasColumnType("character varying")
+                    .HasColumnName("west_b");
+
+                entity.Property(e => e.WestL).HasColumnName("west_l");
+
+                entity.Property(e => e.WestL1).HasColumnName("west_l1");
+
+                entity.Property(e => e.WestL2).HasColumnName("west_l2");
+
+                entity.Property(e => e.WestL3).HasColumnName("west_l3");
+
+                entity.Property(e => e.WestL4).HasColumnName("west_l4");
+
+                entity.Property(e => e.WestL5).HasColumnName("west_l5");
+
+                entity.Property(e => e.WestL6).HasColumnName("west_l6");
+
+                entity.Property(e => e.WestLg).HasColumnName("west_lg");
+
+                entity.Property(e => e.X)
+                    .HasColumnType("character varying")
+                    .HasColumnName("x");
+
+                entity.Property(e => e.Y)
+                    .HasColumnType("character varying")
+                    .HasColumnName("y");
+            });
+
+            modelBuilder.Entity<CertificateViewLayoutEdit2>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("certificate_view_layout_edit2");
+
+                entity.Property(e => e.Addeddate).HasColumnName("addeddate");
+
+                entity.Property(e => e.ApartNum)
+                    .HasColumnType("character varying")
+                    .HasColumnName("apart_num");
+
+                entity.Property(e => e.AreaAp1).HasColumnName("area_ap1");
+
+                entity.Property(e => e.AreaAp2).HasColumnName("area_ap2");
+
+                entity.Property(e => e.AreaAp3).HasColumnName("area_ap3");
+
+                entity.Property(e => e.AreaAp4).HasColumnName("area_ap4");
+
+                entity.Property(e => e.AreaAp5).HasColumnName("area_ap5");
+
+                entity.Property(e => e.AreaAp6).HasColumnName("area_ap6");
+
+                entity.Property(e => e.AreaBuild).HasColumnName("area_build");
+
+                entity.Property(e => e.AreaG).HasColumnName("area_g");
+
+                entity.Property(e => e.AreaLand).HasColumnName("area_land");
+
+                entity.Property(e => e.CompanyId).HasColumnName("company_id");
+
+                entity.Property(e => e.Descrip).HasColumnName("descrip");
+
+                entity.Property(e => e.DueDate).HasColumnName("due_date");
+
+                entity.Property(e => e.EastB)
+                    .HasColumnType("character varying")
+                    .HasColumnName("east_b");
+
+                entity.Property(e => e.EastL).HasColumnName("east_l");
+
+                entity.Property(e => e.EastL1).HasColumnName("east_l1");
+
+                entity.Property(e => e.EastL2).HasColumnName("east_l2");
+
+                entity.Property(e => e.EastL3).HasColumnName("east_l3");
+
+                entity.Property(e => e.EastL4).HasColumnName("east_l4");
+
+                entity.Property(e => e.EastL5).HasColumnName("east_l5");
+
+                entity.Property(e => e.EastL6).HasColumnName("east_l6");
+
+                entity.Property(e => e.EastLg).HasColumnName("east_lg");
+
+                entity.Property(e => e.FloorNT)
+                    .HasColumnType("character varying")
+                    .HasColumnName("floor_n_t");
+
+                entity.Property(e => e.FloorNumb)
+                    .HasMaxLength(20)
+                    .HasColumnName("floor_numb");
+
+                entity.Property(e => e.Garden).HasColumnName("garden");
+
+                entity.Property(e => e.Gov)
+                    .HasMaxLength(200)
+                    .HasColumnName("gov");
+
+                entity.Property(e => e.Hod)
+                    .HasColumnType("character varying")
+                    .HasColumnName("hod");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Ket3a)
+                    .HasColumnType("character varying")
+                    .HasColumnName("ket3a");
+
+                entity.Property(e => e.Manwr).HasColumnName("manwr");
+
+                entity.Property(e => e.Name)
+                    .HasColumnType("character varying")
+                    .HasColumnName("name");
+
+                entity.Property(e => e.Ncpslu).HasColumnName("ncpslu");
+
+                entity.Property(e => e.NorthB)
+                    .HasColumnType("character varying")
+                    .HasColumnName("north_b");
+
+                entity.Property(e => e.NorthL).HasColumnName("north_l");
+
+                entity.Property(e => e.NorthL1).HasColumnName("north_l1");
+
+                entity.Property(e => e.NorthL2).HasColumnName("north_l2");
+
+                entity.Property(e => e.NorthL3).HasColumnName("north_l3");
+
+                entity.Property(e => e.NorthL4).HasColumnName("north_l4");
+
+                entity.Property(e => e.NorthL5).HasColumnName("north_l5");
+
+                entity.Property(e => e.NorthL6).HasColumnName("north_l6");
+
+                entity.Property(e => e.NorthLg).HasColumnName("north_lg");
+
+                entity.Property(e => e.Overlap).HasColumnName("overlap");
+
+                entity.Property(e => e.Phone)
+                    .HasColumnType("character varying")
+                    .HasColumnName("phone");
+
+                entity.Property(e => e.Print).HasColumnName("print");
+
+                entity.Property(e => e.PrintStatus).HasColumnName("print_status");
+
+                entity.Property(e => e.Printdate).HasColumnName("printdate");
+
+                entity.Property(e => e.PropertyN)
+                    .HasColumnType("character varying")
+                    .HasColumnName("property_n");
+
+                entity.Property(e => e.Receiptimagepath).HasColumnName("receiptimagepath");
+
+                entity.Property(e => e.Requestnumber)
+                    .HasColumnType("character varying")
+                    .HasColumnName("requestnumber");
+
+                entity.Property(e => e.Sealm).HasColumnName("sealm");
+
+                entity.Property(e => e.Sealmm).HasColumnName("sealmm");
+
+                entity.Property(e => e.Sec)
+                    .HasMaxLength(200)
+                    .HasColumnName("sec");
+
+                entity.Property(e => e.Serag)
+                    .HasColumnType("character varying")
+                    .HasColumnName("serag");
+
+                entity.Property(e => e.SeragShaqaa).HasColumnName("serag_shaqaa");
+
+                entity.Property(e => e.Seragid).HasColumnName("seragid");
+
+                entity.Property(e => e.SeragidCount).HasColumnName("seragid_count");
+
+                entity.Property(e => e.ShaqaaSeragCount).HasColumnName("shaqaa_serag_count");
+
+                entity.Property(e => e.SouthB)
+                    .HasColumnType("character varying")
+                    .HasColumnName("south_b");
+
+                entity.Property(e => e.SouthL).HasColumnName("south_l");
+
+                entity.Property(e => e.SouthL1).HasColumnName("south_l1");
+
+                entity.Property(e => e.SouthL2).HasColumnName("south_l2");
+
+                entity.Property(e => e.SouthL3).HasColumnName("south_l3");
+
+                entity.Property(e => e.SouthL4).HasColumnName("south_l4");
+
+                entity.Property(e => e.SouthL5).HasColumnName("south_l5");
+
+                entity.Property(e => e.SouthL6).HasColumnName("south_l6");
+
+                entity.Property(e => e.SouthLg).HasColumnName("south_lg");
+
+                entity.Property(e => e.Ssec)
+                    .HasMaxLength(200)
+                    .HasColumnName("ssec");
+
+                entity.Property(e => e.Status).HasColumnName("status");
 
                 entity.Property(e => e.Streetname)
                     .HasMaxLength(200)
@@ -3359,7 +3652,7 @@ namespace Zezoprice.Models
                 entity.Property(e => e.SendReview).HasColumnName("send_review");
 
                 entity.Property(e => e.Serag)
-                    .HasMaxLength(36)
+                    .HasColumnType("character varying")
                     .HasColumnName("serag");
 
                 entity.Property(e => e.SouthBorderLength).HasColumnName("south_border_length");
@@ -3508,6 +3801,10 @@ namespace Zezoprice.Models
                 entity.Property(e => e.FieldDataId)
                     .ValueGeneratedOnAdd()
                     .HasColumnName("field_data_id");
+
+                entity.Property(e => e.ImageRefuse)
+                    .HasColumnType("character varying")
+                    .HasColumnName("image_refuse");
 
                 entity.Property(e => e.NorthBorderLength).HasColumnName("north_border_length");
 
@@ -4991,6 +5288,237 @@ namespace Zezoprice.Models
                     .HasColumnName("tablename");
             });
 
+            modelBuilder.Entity<Nezar>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("nezar");
+
+                entity.Property(e => e.Addeddate)
+                    .HasColumnType("timestamp without time zone")
+                    .HasColumnName("addeddate");
+
+                entity.Property(e => e.Comment).HasColumnName("comment");
+
+                entity.Property(e => e.CommentTime)
+                    .HasColumnType("timestamp without time zone")
+                    .HasColumnName("comment_time");
+
+                entity.Property(e => e.CompanyId).HasColumnName("company_id");
+
+                entity.Property(e => e.Companyname).HasColumnName("companyname");
+
+                entity.Property(e => e.EditStatus).HasColumnName("edit_status");
+
+                entity.Property(e => e.Editcertificateinformation)
+                    .HasColumnType("character varying")
+                    .HasColumnName("editcertificateinformation");
+
+                entity.Property(e => e.Extracopiesprice).HasColumnName("extracopiesprice");
+
+                entity.Property(e => e.IdShippingorder).HasColumnName("id_shippingorder");
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(200)
+                    .HasColumnName("name");
+
+                entity.Property(e => e.Numberofcopies).HasColumnName("numberofcopies");
+
+                entity.Property(e => e.Orderstatus).HasColumnName("orderstatus");
+
+                entity.Property(e => e.OverlapStatus)
+                    .HasColumnType("char")
+                    .HasColumnName("overlap_status");
+
+                entity.Property(e => e.OverlapStatuss).HasColumnName("overlap_statuss");
+
+                entity.Property(e => e.Paidstatus).HasColumnName("paidstatus");
+
+                entity.Property(e => e.PrintDate).HasColumnName("print_date");
+
+                entity.Property(e => e.PrintStatus).HasColumnName("print_status");
+
+                entity.Property(e => e.PrintStatuss).HasColumnName("print_statuss");
+
+                entity.Property(e => e.Recert).HasColumnName("recert");
+
+                entity.Property(e => e.Recertt).HasColumnName("recertt");
+
+                entity.Property(e => e.RequestCount).HasColumnName("request_count");
+
+                entity.Property(e => e.Requestid).HasColumnName("requestid");
+
+                entity.Property(e => e.Requestnumber)
+                    .HasColumnType("character varying")
+                    .HasColumnName("requestnumber");
+
+                entity.Property(e => e.Status).HasColumnName("status");
+
+                entity.Property(e => e.StatusDate).HasColumnName("status_date");
+
+                entity.Property(e => e.Statuss).HasColumnName("statuss");
+
+                entity.Property(e => e.Tofedex).HasColumnName("tofedex");
+
+                entity.Property(e => e.Unittype)
+                    .HasMaxLength(50)
+                    .HasColumnName("unittype");
+            });
+
+            modelBuilder.Entity<Nezar2>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("nezar2");
+
+                entity.Property(e => e.Addeddate)
+                    .HasColumnType("timestamp without time zone")
+                    .HasColumnName("addeddate");
+
+                entity.Property(e => e.Comment).HasColumnName("comment");
+
+                entity.Property(e => e.CommentTime)
+                    .HasColumnType("timestamp without time zone")
+                    .HasColumnName("comment_time");
+
+                entity.Property(e => e.CompanyId).HasColumnName("company_id");
+
+                entity.Property(e => e.Companyname).HasColumnName("companyname");
+
+                entity.Property(e => e.EditStatus).HasColumnName("edit_status");
+
+                entity.Property(e => e.Editcertificateinformation)
+                    .HasColumnType("character varying")
+                    .HasColumnName("editcertificateinformation");
+
+                entity.Property(e => e.Extracopiesprice).HasColumnName("extracopiesprice");
+
+                entity.Property(e => e.IdShippingorder).HasColumnName("id_shippingorder");
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(200)
+                    .HasColumnName("name");
+
+                entity.Property(e => e.Numberofcopies).HasColumnName("numberofcopies");
+
+                entity.Property(e => e.Orderstatus).HasColumnName("orderstatus");
+
+                entity.Property(e => e.OverlapStatus)
+                    .HasColumnType("char")
+                    .HasColumnName("overlap_status");
+
+                entity.Property(e => e.OverlapStatuss).HasColumnName("overlap_statuss");
+
+                entity.Property(e => e.Paidstatus).HasColumnName("paidstatus");
+
+                entity.Property(e => e.PrintDate).HasColumnName("print_date");
+
+                entity.Property(e => e.PrintStatus).HasColumnName("print_status");
+
+                entity.Property(e => e.PrintStatuss).HasColumnName("print_statuss");
+
+                entity.Property(e => e.Recert).HasColumnName("recert");
+
+                entity.Property(e => e.Recertt).HasColumnName("recertt");
+
+                entity.Property(e => e.RequestCount).HasColumnName("request_count");
+
+                entity.Property(e => e.Requestid).HasColumnName("requestid");
+
+                entity.Property(e => e.Requestnumber)
+                    .HasColumnType("character varying")
+                    .HasColumnName("requestnumber");
+
+                entity.Property(e => e.Status).HasColumnName("status");
+
+                entity.Property(e => e.StatusDate).HasColumnName("status_date");
+
+                entity.Property(e => e.Statuss).HasColumnName("statuss");
+
+                entity.Property(e => e.Tofedex).HasColumnName("tofedex");
+
+                entity.Property(e => e.Unittype)
+                    .HasMaxLength(50)
+                    .HasColumnName("unittype");
+            });
+
+            modelBuilder.Entity<Nezar3>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("nezar3");
+
+                entity.Property(e => e.Addeddate)
+                    .HasColumnType("timestamp without time zone")
+                    .HasColumnName("addeddate");
+
+                entity.Property(e => e.Comment).HasColumnName("comment");
+
+                entity.Property(e => e.CommentTime)
+                    .HasColumnType("timestamp without time zone")
+                    .HasColumnName("comment_time");
+
+                entity.Property(e => e.CompanyId).HasColumnName("company_id");
+
+                entity.Property(e => e.Companyname).HasColumnName("companyname");
+
+                entity.Property(e => e.EditStatus).HasColumnName("edit_status");
+
+                entity.Property(e => e.Editcertificateinformation)
+                    .HasColumnType("character varying")
+                    .HasColumnName("editcertificateinformation");
+
+                entity.Property(e => e.Extracopiesprice).HasColumnName("extracopiesprice");
+
+                entity.Property(e => e.IdShippingorder).HasColumnName("id_shippingorder");
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(200)
+                    .HasColumnName("name");
+
+                entity.Property(e => e.Numberofcopies).HasColumnName("numberofcopies");
+
+                entity.Property(e => e.Orderstatus).HasColumnName("orderstatus");
+
+                entity.Property(e => e.OverlapStatus)
+                    .HasColumnType("char")
+                    .HasColumnName("overlap_status");
+
+                entity.Property(e => e.OverlapStatuss).HasColumnName("overlap_statuss");
+
+                entity.Property(e => e.Paidstatus).HasColumnName("paidstatus");
+
+                entity.Property(e => e.PrintDate).HasColumnName("print_date");
+
+                entity.Property(e => e.PrintStatus).HasColumnName("print_status");
+
+                entity.Property(e => e.PrintStatuss).HasColumnName("print_statuss");
+
+                entity.Property(e => e.Recert).HasColumnName("recert");
+
+                entity.Property(e => e.Recertt).HasColumnName("recertt");
+
+                entity.Property(e => e.RequestCount).HasColumnName("request_count");
+
+                entity.Property(e => e.Requestid).HasColumnName("requestid");
+
+                entity.Property(e => e.Requestnumber)
+                    .HasColumnType("character varying")
+                    .HasColumnName("requestnumber");
+
+                entity.Property(e => e.Status).HasColumnName("status");
+
+                entity.Property(e => e.StatusDate).HasColumnName("status_date");
+
+                entity.Property(e => e.Statuss).HasColumnName("statuss");
+
+                entity.Property(e => e.Tofedex).HasColumnName("tofedex");
+
+                entity.Property(e => e.Unittype)
+                    .HasMaxLength(50)
+                    .HasColumnName("unittype");
+            });
+
             modelBuilder.Entity<Nsdi>(entity =>
             {
                 entity.HasNoKey();
@@ -5114,7 +5642,7 @@ namespace Zezoprice.Models
                 entity.Property(e => e.SendReview).HasColumnName("send_review");
 
                 entity.Property(e => e.Serag)
-                    .HasMaxLength(36)
+                    .HasColumnType("character varying")
                     .HasColumnName("serag");
 
                 entity.Property(e => e.SouthBorderLength).HasColumnName("south_border_length");
@@ -5384,6 +5912,10 @@ namespace Zezoprice.Models
 
                 entity.Property(e => e.Areatype).HasColumnName("areatype");
 
+                entity.Property(e => e.Assigned)
+                    .HasColumnName("assigned")
+                    .HasDefaultValueSql("0");
+
                 entity.Property(e => e.Buildingarea)
                     .HasColumnType("character varying")
                     .HasColumnName("buildingarea");
@@ -5413,6 +5945,10 @@ namespace Zezoprice.Models
                     .HasColumnType("timestamp without time zone")
                     .HasColumnName("modifieddate");
 
+                entity.Property(e => e.Paymentdifferenceamount).HasColumnName("paymentdifferenceamount");
+
+                entity.Property(e => e.Paymentstatus).HasColumnName("paymentstatus");
+
                 entity.Property(e => e.Price).HasColumnName("price");
 
                 entity.Property(e => e.Requeststatus).HasColumnName("requeststatus");
@@ -5430,6 +5966,11 @@ namespace Zezoprice.Models
                 entity.Property(e => e.Userid)
                     .HasColumnType("character varying")
                     .HasColumnName("userid");
+            });
+
+            modelBuilder.Entity<RequestPrice>(entity =>
+            {
+                entity.HasNoKey();
             });
 
             modelBuilder.Entity<RequestTawheed>(entity =>
@@ -5477,7 +6018,7 @@ namespace Zezoprice.Models
                     .HasColumnName("requestnumber");
 
                 entity.Property(e => e.Serag)
-                    .HasMaxLength(36)
+                    .HasColumnType("character varying")
                     .HasColumnName("serag");
 
                 entity.Property(e => e.SouthBorderLength).HasColumnName("south_border_length");
@@ -5581,83 +6122,6 @@ namespace Zezoprice.Models
                 entity.Property(e => e.Requestid).HasColumnName("requestid");
 
                 entity.Property(e => e.Subunitareadifference).HasColumnName("subunitareadifference");
-            });
-
-            modelBuilder.Entity<RequestsDash>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.ToView("requests_dash");
-
-                entity.Property(e => e.ApartmentNumber)
-                    .HasColumnType("character varying")
-                    .HasColumnName("apartment_number");
-
-                entity.Property(e => e.Arabicfullname)
-                    .HasMaxLength(200)
-                    .HasColumnName("arabicfullname");
-
-                entity.Property(e => e.Cert).HasColumnName("cert");
-
-                entity.Property(e => e.Certt).HasColumnName("certt");
-
-                entity.Property(e => e.Certtt).HasColumnName("certtt");
-
-                entity.Property(e => e.CollectStatus).HasColumnName("collect_status");
-
-                entity.Property(e => e.Collected).HasColumnName("collected");
-
-                entity.Property(e => e.DueDate).HasColumnName("due_date");
-
-                entity.Property(e => e.FloorNumber)
-                    .HasMaxLength(20)
-                    .HasColumnName("floor_number");
-
-                entity.Property(e => e.Gov)
-                    .HasMaxLength(200)
-                    .HasColumnName("gov");
-
-                entity.Property(e => e.Id).HasColumnName("id");
-
-                entity.Property(e => e.PrintStatus).HasColumnName("print_status");
-
-                entity.Property(e => e.PropertyNumber)
-                    .HasColumnType("character varying")
-                    .HasColumnName("property_number");
-
-                entity.Property(e => e.Requestnumber)
-                    .HasColumnType("character varying")
-                    .HasColumnName("requestnumber");
-
-                entity.Property(e => e.Sec)
-                    .HasMaxLength(200)
-                    .HasColumnName("sec");
-
-                entity.Property(e => e.Ssec)
-                    .HasMaxLength(200)
-                    .HasColumnName("ssec");
-
-                entity.Property(e => e.Streetname)
-                    .HasMaxLength(200)
-                    .HasColumnName("streetname");
-
-                entity.Property(e => e.SurveyReview).HasColumnName("survey_review");
-
-                entity.Property(e => e.SurveyReviewStatus).HasColumnName("survey_review_status");
-
-                entity.Property(e => e.Telephonenumber)
-                    .HasColumnType("character varying")
-                    .HasColumnName("telephonenumber");
-
-                entity.Property(e => e.Tofedex).HasColumnName("tofedex");
-
-                entity.Property(e => e.Typee)
-                    .HasMaxLength(50)
-                    .HasColumnName("typee");
-
-                entity.Property(e => e.UniqueMark)
-                    .HasMaxLength(200)
-                    .HasColumnName("unique_mark");
             });
 
             modelBuilder.Entity<RequestsExtrainfo>(entity =>
@@ -5887,7 +6351,7 @@ namespace Zezoprice.Models
                     .HasColumnName("requestnumber");
 
                 entity.Property(e => e.Serag)
-                    .HasMaxLength(36)
+                    .HasColumnType("character varying")
                     .HasColumnName("serag");
 
                 entity.Property(e => e.SeragidCount).HasColumnName("seragid_count");
@@ -6112,6 +6576,11 @@ namespace Zezoprice.Models
                     .HasColumnName("id")
                     .UseIdentityAlwaysColumn();
 
+                entity.Property(e => e.Con1)
+                    .HasMaxLength(50)
+                    .HasColumnName("con1")
+                    .HasDefaultValueSql("'np'::character varying");
+
                 entity.Property(e => e.Createdby)
                     .HasColumnType("character varying")
                     .HasColumnName("createdby");
@@ -6122,13 +6591,29 @@ namespace Zezoprice.Models
 
                 entity.Property(e => e.Editcertificateinformation).HasColumnName("editcertificateinformation");
 
+                entity.Property(e => e.PhoneNotPaid).HasColumnName("phone_not_paid");
+
                 entity.Property(e => e.PrintDate).HasColumnName("print_date");
 
                 entity.Property(e => e.PrintStatus).HasColumnName("print_status");
 
+                entity.Property(e => e.RecertNotPaid)
+                    .HasColumnType("character varying")
+                    .HasColumnName("recert_not_paid");
+
                 entity.Property(e => e.Requestnumber)
                     .HasMaxLength(21)
                     .HasColumnName("requestnumber");
+
+                entity.Property(e => e.StatusNotPaid)
+                    .HasColumnType("character varying")
+                    .HasColumnName("status_not_paid");
+
+                entity.Property(e => e.SubStautsNotPaid)
+                    .HasColumnType("character varying")
+                    .HasColumnName("sub_stauts_not_paid");
+
+                entity.Property(e => e.TofidexNotPaid).HasColumnName("tofidex_not_paid");
             });
 
             modelBuilder.Entity<ShippingordersStatus>(entity =>
@@ -6149,6 +6634,18 @@ namespace Zezoprice.Models
 
                 entity.Property(e => e.Comment).HasColumnName("comment");
 
+                entity.Property(e => e.CommentCompany)
+                    .HasColumnType("character varying")
+                    .HasColumnName("comment_company");
+
+                entity.Property(e => e.CommentRsc)
+                    .HasColumnType("character varying")
+                    .HasColumnName("comment_rsc");
+
+                entity.Property(e => e.CommentSend)
+                    .HasColumnType("character varying")
+                    .HasColumnName("comment_send");
+
                 entity.Property(e => e.CommentTime)
                     .HasColumnType("timestamp without time zone")
                     .HasColumnName("comment_time");
@@ -6165,6 +6662,10 @@ namespace Zezoprice.Models
 
                 entity.Property(e => e.PrintStatus).HasColumnName("print_status");
 
+                entity.Property(e => e.ReceiveComment)
+                    .HasColumnType("character varying")
+                    .HasColumnName("receive_comment");
+
                 entity.Property(e => e.Recert).HasColumnName("recert");
 
                 entity.Property(e => e.Requestnumber)
@@ -6176,6 +6677,8 @@ namespace Zezoprice.Models
                     .HasDefaultValueSql("0");
 
                 entity.Property(e => e.StatusDate).HasColumnName("status_date");
+
+                entity.Property(e => e.SubStatus).HasColumnName("sub_status");
 
                 entity.Property(e => e.Tofedex).HasColumnName("tofedex");
             });
@@ -6272,11 +6775,17 @@ namespace Zezoprice.Models
                     .HasColumnType("timestamp without time zone")
                     .HasColumnName("comment_time");
 
+                entity.Property(e => e.IdShippingorder).HasColumnName("id_shippingorder");
+
                 entity.Property(e => e.Requestnumber)
                     .HasColumnType("character varying")
                     .HasColumnName("requestnumber");
 
                 entity.Property(e => e.Sender).HasColumnName("sender");
+
+                entity.Property(e => e.UserName)
+                    .HasColumnType("character varying")
+                    .HasColumnName("user_name");
             });
 
             modelBuilder.Entity<Surveygi>(entity =>
@@ -6290,7 +6799,7 @@ namespace Zezoprice.Models
                     .IsUnique();
 
                 entity.Property(e => e.Seragid)
-                    .HasMaxLength(36)
+                    .HasColumnType("character varying")
                     .HasColumnName("seragid");
 
                 entity.Property(e => e.Date)
@@ -6421,6 +6930,10 @@ namespace Zezoprice.Models
                 entity.Property(e => e.Serag)
                     .HasColumnType("character varying")
                     .HasColumnName("serag");
+
+                entity.Property(e => e.SeragLetters)
+                    .HasMaxLength(1)
+                    .HasColumnName("serag_letters");
 
                 entity.Property(e => e.SeragShaqaaa).HasColumnName("serag_shaqaaa");
 
@@ -6589,6 +7102,33 @@ namespace Zezoprice.Models
                     .HasColumnName("region");
 
                 entity.Property(e => e.Remain).HasColumnName("remain");
+            });
+
+            modelBuilder.Entity<Ta3delatComm>(entity =>
+            {
+                entity.ToTable("ta3delat_comm");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.CmmantTime).HasColumnName("cmmant_time");
+
+                entity.Property(e => e.Commant)
+                    .HasColumnType("character varying")
+                    .HasColumnName("commant");
+
+                entity.Property(e => e.Commpany)
+                    .HasColumnType("character varying")
+                    .HasColumnName("commpany");
+
+                entity.Property(e => e.IdShippingorder).HasColumnName("id_shippingorder");
+
+                entity.Property(e => e.Requestnumber)
+                    .HasColumnType("character varying")
+                    .HasColumnName("requestnumber");
+
+                entity.Property(e => e.UserName)
+                    .HasColumnType("character varying")
+                    .HasColumnName("user_name");
             });
 
             modelBuilder.Entity<Techoffice>(entity =>

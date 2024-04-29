@@ -43,5 +43,6 @@ namespace Zezoprice.Models
         public short? PrintStatus { get; set; }
         public short? Repeatrefuse { get; set; }
         public char? SeragLetters { get; set; }
+        public string? Com { get; set; }
     }
 }
