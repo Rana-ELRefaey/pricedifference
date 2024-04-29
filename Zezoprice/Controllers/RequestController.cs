@@ -367,8 +367,6 @@ namespace Zezoprice.Controllers
 
         [HttpGet]
         [Route("ValidCertificate")]
-
-       
         public ActionResult<AfterDto> ValidCertificate(int pagenumber, string? requestnumber,
              int? requesttype, int? usagetype, DateTime? addeddatefilter)
         {
@@ -717,8 +715,6 @@ namespace Zezoprice.Controllers
 
 
         }
-
-
 
         [HttpGet]
         [Route("inValidCertificate")]
@@ -1074,12 +1070,7 @@ namespace Zezoprice.Controllers
 
         }
 
-
-
-
-
         [HttpPost("FromExcel")]
-
         public ActionResult<List<DataDto>> AllDataFromExcel(IFormFile excelFile, int pageNumber)
         {
             var list = new List<string>();
@@ -1113,9 +1104,6 @@ namespace Zezoprice.Controllers
             List<DataDto> data = GetFilteredAllData(list, pageNumber);
             return Ok(data);
         }
-
-
-
 
         private List<DataDto> GetFilteredAllData(List<string> requestNumbers, int pagenumber)
         {
@@ -1423,3 +1411,6 @@ namespace Zezoprice.Controllers
         }
     }
 }
+
+
+
