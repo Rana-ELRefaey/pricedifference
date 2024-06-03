@@ -486,6 +486,7 @@ namespace Zezoprice.Controllers
                             };
                             Price += services.CalculatePriceAfter(calculatePrice, item.Addeddate);
                         }
+
                         else
                         {
                             TypesToGetAreaDto areaDto = new TypesToGetAreaDto();
@@ -1051,24 +1052,24 @@ namespace Zezoprice.Controllers
                         Data.Add(dataDto);
 
                 }
-                #endregion
 
+                #endregion
+   
 
 
             }
            
-          var priceDifferenceCount = Data.Count(dto => dto.priceDefernce > 0);
 
-            //while (Data.Count < 15)
-            //{
-            //    Data.Add(new DataDto());
-            //}
+           var priceDifferenceCount = Data.Count(dto => dto.priceDefernce > 0);
 
-            //var filter = Data.Count();
+            
 
-            return Ok(new { Count = priceDifferenceCount, Data = Data.Take(15) });
+
+                return Ok(new { Count = priceDifferenceCount, Data = Data.Take(100) });
+            
 
         }
+
 
         [HttpPost("FromExcel")]
         public ActionResult<List<DataDto>> AllDataFromExcel(IFormFile excelFile, int pageNumber)

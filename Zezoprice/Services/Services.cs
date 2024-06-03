@@ -6,6 +6,7 @@ namespace Zezoprice.Services
     {
         DateTime spcificDate= new DateTime(2022,8,11);
 
+
         public decimal GetPriceLevelBuild(decimal Area, DateTime? dateTime,CalculatePriceAfterDto dto)
         {   
           
@@ -108,7 +109,7 @@ namespace Zezoprice.Services
 
 
             if (Area > 20)
-                return Area * (decimal)1350.5;
+                return Area * (decimal)1350;
 
 
             return Area;
@@ -253,7 +254,5 @@ namespace Zezoprice.Services
             }
             return data;
         }
-
-       
     }
 }
